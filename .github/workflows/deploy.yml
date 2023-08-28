@@ -13,8 +13,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      # Здесь вы можете добавить дополнительные шаги для сборки вашего приложения, если это необходимо.
-
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@v1.5.0
         with:
