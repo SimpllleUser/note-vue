@@ -1,7 +1,7 @@
 <template>
   <q-page class="row items-center justify-evenly">
     <div>
-      <h1>Test !!!</h1>
+      <h1>Test !!! DEPLOY</h1>
     </div>
     <div><b-editor /></div>
     <div>
