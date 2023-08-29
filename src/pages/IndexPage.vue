@@ -39,7 +39,6 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import BEditor from 'src/components/Editor/BEditor.vue';
 
 const urls = ref([
-  'https://tiptap.dev/api/extensions/color',
   'https://tiptap.dev/api/extensions/focus',
   'https://tiptap.dev/api/marks/highlight',
   'https://tiptap.dev/api/extensions/history',
