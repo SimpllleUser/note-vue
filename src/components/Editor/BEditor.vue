@@ -1,5 +1,6 @@
 <template>
   <b-editor-menu v-if="editor" :editor="editor" />
+  <b-ediotor-table-menu v-if="editor" :editor="editor" />
   <editor-content :editor="editor" />
 </template>
 
@@ -7,13 +8,19 @@
 import { ref, onMounted, onBeforeUnmount } from 'vue';
 import StarterKit from '@tiptap/starter-kit';
 import { Editor, EditorContent, BubbleMenu, FloatingMenu } from '@tiptap/vue-3';
+import '../../css/editor/table.scss';
 import BEditorMenu from './BEditorMenu.vue';
+import BEdiotorTableMenu from './BEdiotorTableMenu.vue';
+
+import { useTable } from './composables/useTable';
 
 const editor = ref<Editor>();
 
+const { getTableConfig } = useTable(editor.value);
+
 onMounted(() => {
   editor.value = new Editor({
-    extensions: [StarterKit],
+    extensions: [StarterKit, ...getTableConfig()],
     content: `
         <h2>
           Hi there,
@@ -27,4 +34,4 @@ onBeforeUnmount(() => {
 });
 </script>
 
-<style lang="scss" scope></style>
+<style lang="scss"></style>
