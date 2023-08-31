@@ -18,7 +18,7 @@ import '../../css/editor/table.scss';
 import BEditorMenu from './BEditorMenu.vue';
 import BEdiotorTableMenu from './BEdiotorTableMenu.vue';
 import BEditorColor from './BEditorColor.vue';
-
+import Focus from '@tiptap/extension-focus';
 import { useTable } from './composables/useTable';
 
 const editor = ref<Editor>();
@@ -34,8 +34,13 @@ onMounted(() => {
       Text,
       TextStyle,
       Color,
+      Focus.configure({
+        className: 'has-focus',
+        mode: 'all',
+      }),
       ...getTableConfig(),
     ],
+    autofocus: true,
     content: `
         <h2>
           Hi there,
@@ -49,4 +54,9 @@ onBeforeUnmount(() => {
 });
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.has-focus {
+  border-radius: 3px;
+  box-shadow: 0 0 0 3px #68cef8;
+}
+</style>

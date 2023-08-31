@@ -19,6 +19,7 @@
     "@firebase/firestore-types": "^3.0.0",
     "@quasar/extras": "^1.16.4",
     "@tiptap/extension-color": "^2.1.7",
+    "@tiptap/extension-focus": "^2.1.7",
     "@tiptap/extension-table": "^2.1.7",
     "@tiptap/extension-table-cell": "^2.1.7",
     "@tiptap/extension-table-header": "^2.1.7",
