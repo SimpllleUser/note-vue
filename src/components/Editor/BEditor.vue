@@ -18,6 +18,9 @@
       unsetLink
     </button>
   </div>
+  <div v-if="editor">
+    <b-editor-list :editor="editor" />
+  </div>
   <editor-content v-if="editor" :editor="editor" />
 </template>
 
@@ -37,9 +40,13 @@ import BEditorMenu from './BEditorMenu.vue';
 import BEdiotorTableMenu from './BEdiotorTableMenu.vue';
 import BEditorColor from './BEditorColor.vue';
 import BEditorHilight from './BEditorHilight.vue';
+import BEditorList from './BEditorList.vue';
 import Focus from '@tiptap/extension-focus';
 import HorizontalRule from '@tiptap/extension-horizontal-rule';
+import BulletList from '@tiptap/extension-bullet-list';
 import Link from '@tiptap/extension-link';
+import ListItem from '@tiptap/extension-list-item';
+import OrderedList from '@tiptap/extension-ordered-list';
 import { useTable } from './composables/useTable';
 
 const editor = ref<Editor>();
@@ -55,6 +62,9 @@ onMounted(() => {
       Text,
       TextStyle,
       Color,
+      BulletList,
+      OrderedList,
+      ListItem,
       Highlight.configure({ multicolor: true }),
       HorizontalRule,
       Placeholder.configure({
@@ -123,5 +133,16 @@ onBeforeUnmount(() => {
 
 a {
   color: #68cef8;
+}
+
+.tiptap {
+  > * + * {
+    margin-top: 0.75em;
+  }
+
+  ul,
+  ol {
+    padding: 0 1rem;
+  }
 }
 </style>
