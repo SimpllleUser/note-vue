@@ -2211,7 +2211,7 @@
 
 "@tiptap/extension-horizontal-rule@^2.1.7":
   version "2.1.7"
-  resolved "https://registry.npmjs.org/@tiptap/extension-horizontal-rule/-/extension-horizontal-rule-2.1.7.tgz"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-horizontal-rule/-/extension-horizontal-rule-2.1.7.tgz#7c21bc4917e4ced9382e81626e0f0068b224bfbb"
   integrity sha512-hJupsDxDVmjmKI/Ewl/gtiyUx52Y3wRUhT8dCXNOA5eldmPXN23E2Fa2BC8XB47dyc5pubyNcLuqaLeaZ5hedw==
 
 "@tiptap/extension-italic@^2.1.7":

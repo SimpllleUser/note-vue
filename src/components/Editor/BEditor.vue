@@ -3,6 +3,10 @@
   <b-ediotor-table-menu v-if="editor" :editor="editor" />
   <b-editor-color v-if="editor" :editor="editor" />
   <b-editor-hilight v-if="editor" :editor="editor" />
+  <hr />
+  <q-btn @click="editor.chain().focus().setHorizontalRule().run()">
+    Set horizontal rule
+  </q-btn>
   <editor-content v-if="editor" :editor="editor" />
 </template>
 
@@ -22,6 +26,7 @@ import BEdiotorTableMenu from './BEdiotorTableMenu.vue';
 import BEditorColor from './BEditorColor.vue';
 import BEditorHilight from './BEditorHilight.vue';
 import Focus from '@tiptap/extension-focus';
+import HorizontalRule from '@tiptap/extension-horizontal-rule';
 import { useTable } from './composables/useTable';
 
 const editor = ref<Editor>();
@@ -38,6 +43,7 @@ onMounted(() => {
       TextStyle,
       Color,
       Highlight.configure({ multicolor: true }),
+      HorizontalRule,
       Focus.configure({
         className: 'has-focus',
         mode: 'all',
