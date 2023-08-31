@@ -19,6 +19,7 @@ import Paragraph from '@tiptap/extension-paragraph';
 import Text from '@tiptap/extension-text';
 import Highlight from '@tiptap/extension-highlight';
 import TextStyle from '@tiptap/extension-text-style';
+import Placeholder from '@tiptap/extension-placeholder';
 import { Editor, EditorContent, BubbleMenu, FloatingMenu } from '@tiptap/vue-3';
 import '../../css/editor/table.scss';
 import BEditorMenu from './BEditorMenu.vue';
@@ -44,6 +45,9 @@ onMounted(() => {
       Color,
       Highlight.configure({ multicolor: true }),
       HorizontalRule,
+      Placeholder.configure({
+        placeholder: 'Write something …',
+      }),
       Focus.configure({
         className: 'has-focus',
         mode: 'all',
@@ -68,5 +72,12 @@ onBeforeUnmount(() => {
 .has-focus {
   border-radius: 3px;
   box-shadow: 0 0 0 3px #68cef8;
+}
+.tiptap p.is-editor-empty:first-child::before {
+  color: #adb5bd;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
 }
 </style>
