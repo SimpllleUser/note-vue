@@ -7,6 +7,17 @@
   <q-btn @click="editor.chain().focus().setHorizontalRule().run()">
     Set horizontal rule
   </q-btn>
+  <div v-if="editor">
+    <button @click="setLink" :class="{ 'is-active': editor.isActive('link') }">
+      setLink
+    </button>
+    <button
+      @click="editor.chain().focus().unsetLink().run()"
+      :disabled="!editor.isActive('link')"
+    >
+      unsetLink
+    </button>
+  </div>
   <editor-content v-if="editor" :editor="editor" />
 </template>
 
@@ -28,6 +39,7 @@ import BEditorColor from './BEditorColor.vue';
 import BEditorHilight from './BEditorHilight.vue';
 import Focus from '@tiptap/extension-focus';
 import HorizontalRule from '@tiptap/extension-horizontal-rule';
+import Link from '@tiptap/extension-link';
 import { useTable } from './composables/useTable';
 
 const editor = ref<Editor>();
@@ -52,6 +64,9 @@ onMounted(() => {
         className: 'has-focus',
         mode: 'all',
       }),
+      Link.configure({
+        openOnClick: true,
+      }),
       ...getTableConfig(),
     ],
     autofocus: true,
@@ -62,6 +77,31 @@ onMounted(() => {
         `,
   });
 });
+
+const setLink = () => {
+  const previousUrl = editor.value?.getAttributes('link').href;
+  const url = window.prompt('URL', previousUrl);
+
+  // cancelled
+  if (url === null) {
+    return;
+  }
+
+  // empty
+  if (url === '') {
+    editor.value?.chain().focus().extendMarkRange('link').unsetLink().run();
+
+    return;
+  }
+
+  // update link
+  editor.value
+    ?.chain()
+    .focus()
+    .extendMarkRange('link')
+    .setLink({ href: url })
+    .run();
+};
 
 onBeforeUnmount(() => {
   editor.value?.destroy();
@@ -79,5 +119,9 @@ onBeforeUnmount(() => {
   float: left;
   height: 0;
   pointer-events: none;
+}
+
+a {
+  color: #68cef8;
 }
 </style>
