@@ -7,8 +7,5 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { auth } from '../../.quasar/server';
-import { signInWithEmailAndPassword } from 'firebase/auth';
 import BEditor from 'src/components/Editor/BEditor.vue';
 </script>
