@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { Editor } from '@tiptap/vue-3';
 import { defineProps, ref } from 'vue';
+import icon from './icons/add-row-col.svg';
 
 interface Props {
   editor: Editor;
@@ -15,36 +16,39 @@ interface ButtonConfig {
   params?: any;
   attr?: string;
   attrValue?: string | number;
+  style?: string;
 }
+
+const getIconFromPublicByFileName = (iconFileName: string): string => `img:icons/${iconFileName}.svg`
 
 const buttonConfigs: ButtonConfig[] = [
   {
-    icon: 'table',
+    icon: getIconFromPublicByFileName('table-plus'),
     label: 'Insert Table',
     action: 'insertTable',
-    params: { rows: 3, cols: 3, withHeaderRow: true },
   },
   {
-    icon: 'add_to_queue',
+    icon: getIconFromPublicByFileName('add-row-col'),
     label: 'Add Column Before',
     action: 'addColumnBefore',
+    style: 'transform: rotate(180deg);'
   },
   {
-    icon: 'queue_play_next',
+    icon: getIconFromPublicByFileName('add-row-col'),
     label: 'Add Column After',
     action: 'addColumnAfter',
   },
   {
-    icon: 'indeterminate_check_box',
+    icon: getIconFromPublicByFileName('remove-row-col'),
     label: 'Delete Column',
     action: 'deleteColumn',
   },
-  { icon: 'add_box', label: 'Add Row Before', action: 'addRowBefore' },
-  { icon: 'add_to_photos', label: 'Add Row After', action: 'addRowAfter' },
-  { icon: 'delete_sweep', label: 'Delete Row', action: 'deleteRow' },
-  { icon: 'delete', label: 'Delete Table', action: 'deleteTable' },
-  { icon: 'call_merge', label: 'Merge Cells', action: 'mergeCells' },
-  { icon: 'call_split', label: 'Split Cell', action: 'splitCell' },
+  { icon: getIconFromPublicByFileName('add-row-col'), label: 'Add Row Before', action: 'addRowBefore', style: 'transform: rotate(270deg);' },
+  { icon: getIconFromPublicByFileName('add-row-col'), label: 'Add Row After', action: 'addRowAfter', style: 'transform: rotate(90deg);' },
+  { icon: getIconFromPublicByFileName('remove-row-col'), label: 'Delete Row', action: 'deleteRow', style: 'transform: rotate(90deg);' },
+  { icon: getIconFromPublicByFileName('table-remove'), label: 'Delete Table', action: 'deleteTable' },
+  { icon: getIconFromPublicByFileName('merge-cell'), label: 'Merge Cells', action: 'mergeCells' },
+  { icon: getIconFromPublicByFileName('split-cell'), label: 'Split Cell', action: 'splitCell' },
   {
     icon: 'view_column',
     label: 'Toggle Header Column',
@@ -62,21 +66,20 @@ const buttonConfigs: ButtonConfig[] = [
   },
   { icon: 'compare_arrows', label: 'Merge or Split', action: 'mergeOrSplit' },
   {
-    icon: 'format_paint',
+    icon: getIconFromPublicByFileName('color-fill'),
     label: 'Set Cell Color',
     action: 'setCellAttribute',
-    params: { backgroundColor: '#FAF594' },
   },
-  { icon: 'build', label: 'Fix Tables', action: 'fixTables' },
-  {
-    icon: 'keyboard_arrow_right',
-    label: 'Go to Next Cell',
-    action: 'goToNextCell',
-  },
+  { icon: getIconFromPublicByFileName('table-setting'), label: 'Fix Tables', action: 'fixTables' },
   {
     icon: 'keyboard_arrow_left',
     label: 'Go to Previous Cell',
     action: 'goToPreviousCell',
+  },
+  {
+    icon: 'keyboard_arrow_right',
+    label: 'Go to Next Cell',
+    action: 'goToNextCell',
   },
 ];
 
@@ -107,8 +110,8 @@ const canRunEditorCommand = (config: ButtonConfig) => {
         size="sm"
         @click="runEditorCommand(config)"
         :disabled="!canRunEditorCommand(config)"
-        :icon="config.icon"
       >
+        <q-icon :name="config.icon" :style="config.style" />
         <q-tooltip>
           {{ config.label }}
         </q-tooltip>
@@ -119,4 +122,9 @@ const canRunEditorCommand = (config: ButtonConfig) => {
 
 <style lang="scss">
 /* ваш CSS код */
+img.icon {
+  color: #222;
+  background-color: red;
+  margin-left: 12px;
+}
 </style>
