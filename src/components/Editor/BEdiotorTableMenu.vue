@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { Editor } from '@tiptap/vue-3';
-import { defineProps, ref } from 'vue';
-import icon from './icons/add-row-col.svg';
+import {Editor} from '@tiptap/vue-3';
+import {defineProps, ref} from 'vue';
+import {getIconFromPublicByFileName} from 'boot/tools';
 
 interface Props {
   editor: Editor;
@@ -18,8 +18,6 @@ interface ButtonConfig {
   attrValue?: string | number;
   style?: string;
 }
-
-const getIconFromPublicByFileName = (iconFileName: string): string => `img:icons/${iconFileName}.svg`
 
 const buttonConfigs: ButtonConfig[] = [
   {
@@ -43,12 +41,27 @@ const buttonConfigs: ButtonConfig[] = [
     label: 'Delete Column',
     action: 'deleteColumn',
   },
-  { icon: getIconFromPublicByFileName('add-row-col'), label: 'Add Row Before', action: 'addRowBefore', style: 'transform: rotate(270deg);' },
-  { icon: getIconFromPublicByFileName('add-row-col'), label: 'Add Row After', action: 'addRowAfter', style: 'transform: rotate(90deg);' },
-  { icon: getIconFromPublicByFileName('remove-row-col'), label: 'Delete Row', action: 'deleteRow', style: 'transform: rotate(90deg);' },
-  { icon: getIconFromPublicByFileName('table-remove'), label: 'Delete Table', action: 'deleteTable' },
-  { icon: getIconFromPublicByFileName('merge-cell'), label: 'Merge Cells', action: 'mergeCells' },
-  { icon: getIconFromPublicByFileName('split-cell'), label: 'Split Cell', action: 'splitCell' },
+  {
+    icon: getIconFromPublicByFileName('add-row-col'),
+    label: 'Add Row Before',
+    action: 'addRowBefore',
+    style: 'transform: rotate(270deg);'
+  },
+  {
+    icon: getIconFromPublicByFileName('add-row-col'),
+    label: 'Add Row After',
+    action: 'addRowAfter',
+    style: 'transform: rotate(90deg);'
+  },
+  {
+    icon: getIconFromPublicByFileName('remove-row-col'),
+    label: 'Delete Row',
+    action: 'deleteRow',
+    style: 'transform: rotate(90deg);'
+  },
+  {icon: getIconFromPublicByFileName('table-remove'), label: 'Delete Table', action: 'deleteTable'},
+  {icon: getIconFromPublicByFileName('merge-cell'), label: 'Merge Cells', action: 'mergeCells'},
+  {icon: getIconFromPublicByFileName('split-cell'), label: 'Split Cell', action: 'splitCell'},
   {
     icon: 'view_column',
     label: 'Toggle Header Column',
@@ -64,13 +77,13 @@ const buttonConfigs: ButtonConfig[] = [
     label: 'Toggle Header Cell',
     action: 'toggleHeaderCell',
   },
-  { icon: 'compare_arrows', label: 'Merge or Split', action: 'mergeOrSplit' },
+  {icon: 'compare_arrows', label: 'Merge or Split', action: 'mergeOrSplit'},
   {
     icon: getIconFromPublicByFileName('color-fill'),
     label: 'Set Cell Color',
     action: 'setCellAttribute',
   },
-  { icon: getIconFromPublicByFileName('table-setting'), label: 'Fix Tables', action: 'fixTables' },
+  {icon: getIconFromPublicByFileName('table-setting'), label: 'Fix Tables', action: 'fixTables'},
   {
     icon: 'keyboard_arrow_left',
     label: 'Go to Previous Cell',
@@ -101,22 +114,36 @@ const canRunEditorCommand = (config: ButtonConfig) => {
 
 <template>
   <div v-if="props.editor" class="row justify-center">
-    <div class="q-pa-sm" v-for="config in buttonConfigs" :key="config.action">
-      <q-btn
-        no-caps
-        color="primary"
-        unelevated
-        outline
-        size="sm"
-        @click="runEditorCommand(config)"
-        :disabled="!canRunEditorCommand(config)"
-      >
-        <q-icon :name="config.icon" :style="config.style" />
-        <q-tooltip>
-          {{ config.label }}
-        </q-tooltip>
-      </q-btn>
-    </div>
+    <q-btn :icon="getIconFromPublicByFileName('table-edit')">
+      <q-menu max-height="130px">
+        <q-list>
+          <q-item clickable v-for="config in buttonConfigs" :key="config.action" @click="runEditorCommand(config)">
+            <q-item-section>
+              <q-icon :name="config.icon" :style="config.style"/>
+              <q-tooltip>
+                {{ config.label }}
+              </q-tooltip>
+            </q-item-section>
+          </q-item>
+        </q-list>
+      </q-menu>
+    </q-btn>
+    <!--    <div class="q-pa-sm" v-for="config in buttonConfigs" :key="config.action">-->
+    <!--      <q-btn-->
+    <!--        no-caps-->
+    <!--        color="primary"-->
+    <!--        unelevated-->
+    <!--        outline-->
+    <!--        size="sm"-->
+    <!--        @click="runEditorCommand(config)"-->
+    <!--        :disabled="!canRunEditorCommand(config)"-->
+    <!--      >-->
+    <!--        <q-icon :name="config.icon" :style="config.style" />-->
+    <!--        <q-tooltip>-->
+    <!--          {{ config.label }}-->
+    <!--        </q-tooltip>-->
+    <!--      </q-btn>-->
+    <!--    </div>-->
   </div>
 </template>
 
