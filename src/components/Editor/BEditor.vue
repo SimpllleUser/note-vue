@@ -87,10 +87,10 @@ onMounted(() => {
       Placeholder.configure({
         placeholder: 'Write something …',
       }),
-      Focus.configure({
-        className: 'has-focus',
-        mode: 'all',
-      }),
+      // Focus.configure({
+      //   className: 'has-focus',
+      //   mode: 'all',
+      // }),
       Link.configure({
         openOnClick: true,
       }),
