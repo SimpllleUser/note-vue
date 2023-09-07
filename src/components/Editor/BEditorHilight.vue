@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { computed } from 'vue';
-import { isActive } from '@tiptap/vue-3';
+import { computed, ref} from 'vue';
+import { Editor } from '@tiptap/vue-3';
+import ColorPicker from "components/Editor/ColorPicker.vue";
 
 interface Props {
   editor: Editor;
@@ -9,20 +10,9 @@ interface Props {
 
 const props = defineProps<Props>();
 
-const defaultColors = [
-  'red',
-  '#ffc078',
-  '#8ce99a',
-  '#74c0fc',
-  '#b197fc',
-  '#ffa8a8',
-];
-const colors = computed(() =>
-  props.colors?.length ? props.colors : defaultColors
-);
-
 const setColor = (color: string) => {
   props.editor.chain().focus().toggleHighlight({ color }).run();
+
 };
 
 const isActive = (color: string) =>
@@ -32,37 +22,24 @@ const toggleHighlight = () => {
   props.editor.chain().focus().toggleHighlight().run();
 };
 
+const color = ref('')
 const isActiveHighlight = computed(() => props.editor.isActive('highlight'));
 </script>
 
 <template>
-  <div class="row">
+  <div class="row justify-between">
     <q-btn
-      no-caps
       @click="toggleHighlight"
       :class="{ 'is-active': isActiveHighlight }"
-    >
-      Toggle highlight
-    </q-btn>
+      icon="border_color"
+      size="sm"
+    />
+    <color-picker v-model="color" @set-color="setColor" />
     <q-btn
-      no-caps
-      unelevated
-      v-for="color in colors"
-      :key="color"
-      @click="setColor(color)"
-      :class="{ 'is-active': isActive(color) }"
-      :style="`background-color: ${color}; color: ${color}`"
-    >
-      {{ c }}
-    </q-btn>
-    <q-btn
-      no-caps
       @click="editor.chain().focus().unsetHighlight().run()"
       :disabled="!isActiveHighlight"
-    >
-      Unset highlight
-    </q-btn>
+      icon="format_color_reset"
+      size="sm"
+    />
   </div>
 </template>
-
-<style lang="scss" scoped></style>
