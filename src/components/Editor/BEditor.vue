@@ -5,7 +5,10 @@
   <b-editor-hilight v-if="editor" :editor="editor" />
   <hr />
   <q-btn @click="editor.chain().focus().setHorizontalRule().run()">
-    Set horizontal rule
+    <q-icon :name="getIconFromPublicByFileName('pan-horizontal')" style="transform: rotate(90deg)" />
+    <q-tooltip :delay="300">
+      Set horizontal rule
+    </q-tooltip>
   </q-btn>
   <div v-if="editor">
     <button @click="setLink" :class="{ 'is-active': editor.isActive('link') }">
@@ -64,6 +67,7 @@ import ListItem from '@tiptap/extension-list-item';
 import OrderedList from '@tiptap/extension-ordered-list';
 import { useTable } from './composables/useTable';
 import { lowLightConfig } from './config/useCodeLowLight.ts';
+import { getIconFromPublicByFileName } from 'boot/tools'
 
 const editor = ref<Editor>();
 
