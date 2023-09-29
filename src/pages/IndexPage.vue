@@ -1,6 +1,6 @@
 <template>
   <q-page class="row items-center justify-evenly">
-    <div class="editor-container">
+    <div class="editor-container shadow-5">
       <text-editor v-model="textEditorValue" />
     </div>
   </q-page>
@@ -19,10 +19,11 @@ const textEditorValue = ref('')
 <style lang="scss" scoped>
   .editor-container {
     width: 37.5rem;
+    border-radius: 0.25rem;
     :deep(.editor) {
       padding: 0.5rem;
-      border-radius: 0.25rem;
       min-height: 5rem;
+      border-style: none;
       .codex-editor__redactor {
         padding-bottom: 0px !important;
       }
