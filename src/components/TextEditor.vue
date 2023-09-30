@@ -21,6 +21,7 @@ import RawTool from '@editorjs/raw';
 import { useVModel } from '@vueuse/core'
 interface Props {
   modelValue: string
+  placeholder?: string
 
 }
 
@@ -43,6 +44,7 @@ onMounted(() => {
     autofocus: true,
     holder: editorRef.value,
     data: savedContent.value ? JSON.parse(savedContent.value) : '',
+    placeholder: props?.placeholder || '',
     tools: {
       raw: RawTool,
       table: Table,
